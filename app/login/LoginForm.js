@@ -28,6 +28,7 @@ export default function LoginForm({API_URL}) {
             const result = await response.json()
 
             if(response.ok) {
+                window.location.href = '/dashboard';
             }
         } catch(error) {
             console.log(error); 
