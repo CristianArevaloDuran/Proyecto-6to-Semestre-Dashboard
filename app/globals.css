@@ -1,8 +1,72 @@
 @import "tailwindcss";
 
-@theme inline {
-  
+@theme {
+  --shadow-color: #a4a4a4;
+
+  /* Fonts */
+
+  --newsreader: 'Newsreader', serif;
+  --nunito: 'Nunito Sans', sans-serif;
 }
 
 body {
 }
+
+@layer components {
+    #login::before {
+        content: '';
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        position: absolute;
+        background-color: #e5e5f7;
+        opacity: 0.8;
+        background-image: radial-gradient(circle at center center, #f0cdff, #e5e5f7), repeating-radial-gradient(circle at center center, #f0cdff, #f0cdff, 17px, transparent 34px, transparent 17px);
+        background-blend-mode: multiply;
+        filter: blur(4px);
+    }
+    #login {
+        @apply w-dvw h-dvh flex items-center justify-center relative z-10 bg-[#111b];
+        
+        
+        .login-container {
+            @apply bg-white px-30 py-20 min-w-[500px] flex flex-col items-center justify-center rounded-lg z-10;
+            box-shadow: 0 0 10px #111;
+
+            .title {
+                @apply mb-10 flex flex-col justify-center items-center gap-4;
+
+                h1 {
+                    @apply font-(family-name:--newsreader) text-2xl font-bold text-black ;
+                }
+            }
+
+            .login-form {
+                @apply flex flex-col w-full items-center justify-center gap-5;
+
+                .input {
+                    @apply w-full flex flex-col items-center justify-center;
+
+                    label {
+                        @apply w-full self-start font-(family-name:--nunito) font-bold;
+                    }
+
+                    input {
+                        @apply w-full border-2 rounded-sm px-2 py-2 font-(family-name:--nunito);
+                    }
+
+                    .password {
+                        @apply w-full;
+                    }
+                }
+
+                input[type='submit'] {
+                    @apply bg-black py-2 px-5 text-white cursor-pointer rounded-sm font-(family-name:--newsreader) font-bold text-lg;
+                }
+            }
+        }
+    }
+}
+
