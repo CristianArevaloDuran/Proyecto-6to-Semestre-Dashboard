@@ -6,7 +6,7 @@ export const metadata = {
   description: "Login dashboard yogures de anita",
 };
 
-const API_URL = process.env.API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Login() {    
 

@@ -1,18 +1,26 @@
 import { NextResponse } from 'next/server';
-const API_URL = process.env.API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Proxy to protect routes
 
 export default async function proxy(request) {
+  
   const token = request.cookies.get('session')?.value;
   const {pathname} = request.nextUrl;
+
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
   
   if (!token) {
     if (pathname.startsWith('/dashboard')) {
       return NextResponse.redirect(new URL('/login', request.url));
-    }
+    } 
+    
     return NextResponse.next();
   }
+  
+  
 
   try {
     const response = await fetch(`${API_URL}/verify-token`, {
@@ -39,5 +47,5 @@ export default async function proxy(request) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/login'], // Rutas a proteger
+  matcher: ['/dashboard/:path*', '/login', '/'], // Rutas a proteger
 };

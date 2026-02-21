@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
 @theme {
+
   --shadow-color: #a4a4a4;
+  
+  /* Colors */
+
+  --prim-color: #d20f74;
+
+  --table-rows-color: #ffe3f1;
 
   /* Fonts */
 
@@ -13,6 +20,8 @@ body {
 }
 
 @layer components {
+
+    /* Login form styles */
     #login::before {
         content: '';
         top: 0;
@@ -27,6 +36,7 @@ body {
         background-blend-mode: multiply;
         filter: blur(4px);
     }
+
     #login {
         @apply w-dvw h-dvh flex items-center justify-center relative z-10 bg-[#111b];
         
@@ -64,6 +74,105 @@ body {
 
                 input[type='submit'] {
                     @apply bg-black py-2 px-5 text-white cursor-pointer rounded-sm font-(family-name:--newsreader) font-bold text-lg;
+                }
+            }
+        }
+    }
+
+
+    /* Dashboard Styles */
+
+    #dashboard {
+        @apply w-dvw h-dvh;
+
+        #dashboard-content {
+            @apply pt-[50px] w-full h-full;
+        }
+    }
+
+    /* Nav */
+
+    #nav {
+        @apply w-full h-[50px] fixed bg-(--prim-color) flex items-center justify-between px-5;
+
+        ul {
+            @apply flex flex-row gap-4;
+
+            li {
+                a {
+                    @apply font-(family-name:--nunito) text-white font-bold;
+                }
+            }
+        }
+
+        #logout {
+            @apply cursor-pointer font-(family-name:--nunito) text-white;
+        }
+    }
+
+    /* Home */
+
+    #home {
+        @apply w-full h-full flex flex-col items-center justify-center;
+
+        .title {
+            @apply text-4xl font-(family-name:--newsreader);
+        }
+
+        .modules {
+            @apply border-2 mt-10 rounded-lg;
+
+            a {
+                @apply flex flex-col justify-center items-center p-10;
+
+                svg {
+                    @apply w-[90px] h-[90px];
+                }
+            }
+        }
+    }
+
+    /* Products */
+
+    #products-page {
+        @apply w-full pt-10 flex justify-center relative;
+
+        .back-button {
+            @apply absolute top-0 left-0;
+            
+            svg {
+                @apply w-[50px] h-[50px] cursor-pointer;
+            }
+        }
+
+        .products {
+            @apply w-[90%];
+
+            thead {
+                @apply bg-(--prim-color);
+
+                tr {
+                    th {
+                        @apply px-5 py-2 text-white font-(family-name:--newsreader) text-lg;
+                    }
+                }
+            }
+
+            tbody {
+                @apply bg-(--table-rows-color);
+                tr {
+                    td {
+                        @apply px-5 py-2 font-(family-name:--nunito) text-base text-center text-wrap;
+
+                        div {
+                            @apply flex items-center justify-center;
+                            
+                            img {
+                                @apply w-[80px] h-[80px];
+                            }
+                        }
+                
+                    }
                 }
             }
         }
