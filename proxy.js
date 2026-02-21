@@ -18,7 +18,7 @@ export default async function proxy(request) {
     const response = await fetch(`${API_URL}/verify-token`, {
       method: 'GET',
       headers: {
-        'Cookie': `session=${token}`
+        'Authorization': `Bearer ${token}`
       }      
     })
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from "react";
+import Cookies from "js-cookie";
 
 export default function LoginForm({API_URL}) {
     
@@ -21,20 +22,25 @@ export default function LoginForm({API_URL}) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data),
-                credentials: 'include'
+                body: JSON.stringify(data)
             })
 
-            const result = await response.json()
-
+            
             if(response.ok) {
+                const result = await response.json()
+
+                Cookies.set('session', result.access_token, {secure: true});
+
+                localStorage.setItem('token', result.access_token);
+
+                window.location = '/dashboard';
             }
         } catch(error) {
             console.log(error); 
         }
     }
     return (
-        <form className="login-form" method="post">
+        <form className="login-form" method="post" onSubmit={(e)=> login(e)}>
             <div className="input">
                 <label htmlFor='email'>Email</label>
                 <input ref={emailRef} type="email" id="email" />
@@ -45,7 +51,7 @@ export default function LoginForm({API_URL}) {
                     <input ref={passRef} type="password" id="pass" />
                 </div>
             </div>
-            <input type="submit" value='Iniciar Sesión' onClick={(e)=> login(e)} />
+            <input type="submit" value='Iniciar Sesión' />
         </form>
     )
 }
