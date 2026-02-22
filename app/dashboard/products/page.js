@@ -1,20 +1,28 @@
 'use client';
-import { icons } from "@/app/lib/constants"
 import { useProducts } from "@/hooks/useProducts";
 import TableRowLoader from "@/app/components/TableRowLoader";
-
+import BackButton from "@/app/components/BackButton";
+import { icons } from "@/app/lib/constants";
+import Link from "next/link";
+import Actions from "@/app/components/Actions";
+import Alert from "@/app/components/Alert";
+import { useState } from "react";
 
 export default function Products() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const {products, loading} = useProducts(API_URL);
 
-    const back = () => {
-        window.history.back();
-    }
+    const [productToDelete, setProductToDelete] = useState(null);
+    const [modal, setModal] = useState(false);
+    
     return (
         <div id="products-page">
-            <button className="back-button" onClick={back} dangerouslySetInnerHTML={{__html: icons.back}} />
+            <BackButton text='Inicio' to='/dashboard' />
+            <Link href='/dashboard/products/add' className="add-button">
+                <div dangerouslySetInnerHTML={{__html:icons.plus}} />
+                <p>Añadir</p>
+            </Link>
             <table className="products">
                 <thead>
                     <tr>
@@ -47,14 +55,14 @@ export default function Products() {
                                     </div>
                                 </td>
                                 <td>
-                                    a
+                                    <Actions id={p.id} setProductToDelete={()=>setProductToDelete(p)} setModal={()=>setModal(true)} />
                                 </td>
                             </tr>
                         </tbody>
                     ))
                 }
             </table>
-            
+            <Alert modal={modal} setModal={setModal} product={productToDelete} API_URL={API_URL} />
         </div>
     )
 }

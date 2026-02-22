@@ -8,6 +8,13 @@
 
   --prim-color: #d20f74;
 
+  --modal-bg: #ffffff78;
+
+  --neutral-button-bg: #e4e4e4;
+  --red-button-bg: #e10000;
+
+  --highlight-text: #ff9a20;
+
   --table-rows-color: #ffe3f1;
 
   /* Fonts */
@@ -20,6 +27,10 @@ body {
 }
 
 @layer components {
+
+    /* General components styles */
+
+    
 
     /* Login form styles */
     #login::before {
@@ -86,14 +97,25 @@ body {
         @apply w-dvw h-dvh;
 
         #dashboard-content {
-            @apply pt-[50px] w-full h-full;
+            @apply pt-[50px] w-full h-full relative;
+            
+            .back-button {
+                @apply absolute top-[60px] left-2 flex flex-row cursor-pointer justify-center items-center pr-3 py-1 bg-(--prim-color) rounded-2xl;
+                    
+                svg {
+                    @apply w-[50px] h-[50px] text-white;
+                }
+                p {
+                    @apply text-white font-bold font-(family-name:--nunito);
+                }
+            }
         }
     }
 
     /* Nav */
 
     #nav {
-        @apply w-full h-[50px] fixed bg-(--prim-color) flex items-center justify-between px-5;
+        @apply w-full h-[50px] fixed bg-(--prim-color) flex items-center justify-between px-5 z-50;
 
         ul {
             @apply flex flex-row gap-4;
@@ -135,14 +157,18 @@ body {
     /* Products */
 
     #products-page {
-        @apply w-full pt-10 flex justify-center relative;
+        @apply w-full pt-22 flex justify-center;
 
-        .back-button {
-            @apply absolute top-0 left-0;
-            
+
+        .add-button {
+            @apply absolute bottom-8 right-8 flex flex-row cursor-pointer justify-center items-center pr-3 py-2 bg-(--prim-color) rounded-2xl;
+                    
             svg {
-                @apply w-[50px] h-[50px] cursor-pointer;
+                @apply w-[35px] h-[35px] pl-1 text-white;
             }
+            p {
+                @apply text-white font-bold font-(family-name:--nunito);
+            } 
         }
 
         .products {
@@ -176,6 +202,55 @@ body {
                 }
             }
         }
+
+        .modal-container {
+            @apply fixed w-dvw h-dvh hidden justify-center items-center top-0 left-0 bg-(--modal-bg) z-100 backdrop-blur-sm;
+            
+
+            .modal-content {
+                @apply bg-white flex flex-col justify-center items-center p-20 rounded-xl;
+                box-shadow: 0 0 5px var(--shadow-color);
+                animation: intro .15s ease-in;
+
+                .highlight {
+                    @apply font-bold text-(--highlight-text);
+                }
+
+                p {
+                    @apply font-(family-name:--nunito) text-2xl text-center w-[350px];
+                }
+
+                .options {
+                    @apply flex flex-row gap-4 mt-4;
+
+                    button {
+                        @apply cursor-pointer px-5 py-2 rounded-lg font-bold font-(family-name:--nunito);
+                    }
+
+                    .cancel {
+                        @apply bg-(--neutral-button-bg);
+                    }
+
+                    .confirmation {
+                        @apply bg-(--red-button-bg) text-white;
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+    #add-product {
+        @apply w-full pt-22 flex justify-center;
     }
 }
 
+@keyframes intro {
+    0% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

@@ -2,12 +2,13 @@
 
 import { useRef } from "react";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm({API_URL}) {
-    
+
     const emailRef = useRef('');
     const passRef = useRef('');
+    const router = useRouter();
     
     const login = async (e) => {
         e.preventDefault();
@@ -34,7 +35,7 @@ export default function LoginForm({API_URL}) {
 
                 localStorage.setItem('token', result.access_token);
 
-                window.location = '/dashboard';
+                router.push('/dashboard');
             }
         } catch(error) {
             console.log(error); 
