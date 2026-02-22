@@ -12,7 +12,8 @@ export function useProducts(API) {
                 const response = await fetch(`${API}/products`, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 })
 
