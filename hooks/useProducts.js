@@ -9,6 +9,8 @@ export function useProducts(API, token) {
         
         const fetchProducts = async () => {
             try {
+                
+                const token = localStorage.getItem('token');
 
                 const response = await fetch(`${API}/products`, {
                     method: 'GET',
