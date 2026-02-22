@@ -11,7 +11,9 @@ import { useState } from "react";
 export default function Products() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    const {products, loading} = useProducts(API_URL);
+    const token = localStorage.getItem('token');
+
+    const {products, loading} = useProducts(API_URL, token);
 
     const [productToDelete, setProductToDelete] = useState(null);
     const [modal, setModal] = useState(false);

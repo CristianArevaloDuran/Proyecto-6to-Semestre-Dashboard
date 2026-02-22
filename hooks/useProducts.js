@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useProducts(API) {
+export function useProducts(API, token) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -9,6 +9,7 @@ export function useProducts(API) {
         
         const fetchProducts = async () => {
             try {
+
                 const response = await fetch(`${API}/products`, {
                     method: 'GET',
                     headers: {
